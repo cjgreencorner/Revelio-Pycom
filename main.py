@@ -5,31 +5,26 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""
  For measuring distance between object and itself.
 """""""""""""""""""""""""""""""""""""""""""""""""""
-
+#LIBRARIES
+import network
+from sensor import distance
 
 #AUTHORINFO
 _author_ = "Joel Chapon"
 _email_  = "joel.chapon@student.kdg.be"
 _status_ = "Finished"
 _date_   = "2021-02-24"
+wifi_ssid = "telenet-82DF7B9"
+wifi_password = "YOUR_WIFI_PASSWORD"
+aio_key = "aio_hMXe51B2PmapmKyp2yU1O2xhEMMP"
+username = "cj_greencorner"
+feed_name = "distance"
 
-#LIBRARIES
-from machine import UART
 
-#CONFIGURATIONS
-uart = UART(1)
-uart.init(bits=8, baudrate=9600, parity=None, stop=1, timeout_chars=100, pins('P3', 'P4'))
-DATA_HIGH = int(uart.read(1)[0])
-DATA_LOW = int(uart.read(1)[0])
-SUM = int(uart.read(1)[0])
+sta_if = network.WLAN(network.STA_IF)
+sta_if.active(True)
+sta_if.connect(wifi_ssid, wifi_password)
+while not sta_if.isconnected():
+    print(".", end = "")
 
-#CODE
-while True:
-    header_bytes = uart.read(1)
-    while header_bytes != b'\xff'):
-        header_bytes = uart.read(1)
-
-    global DATA_HIGH, DATA_LOW, SUM
-    if DATA_HIGH + DATA_LOW == SUM:
-        distance = (DATA_HIGH*256)+ DATA_LOW
-        print(distance)
+While True:
