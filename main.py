@@ -20,10 +20,29 @@ import ustruct
 
 # Europe = LoRa.EU868
 
+<<<<<<< HEAD
 
 lora = LoRa(mode=LoRa.LORAWAN, region=LoRa.EU868)
 app_eui = ubinascii.unhexlify('70B3D57ED003E4D8')
 app_key = ubinascii.unhexlify('92FC14552303B706EABEC67C263E8CE3')
+=======
+# create an OTAA authentication parameters, change them to the provided credentials
+app_eui = ubinascii.unhexlify('?')
+app_key = ubinascii.unhexlify('?')
+#uncomment to use LoRaWAN application provided dev_eui
+#dev_eui = ubinascii.unhexlify('70B3D549938EA1EE')
+
+# Uncomment for US915 / AU915 & Pygate
+# for i in range(0,8):
+#     lora.remove_channel(i)
+# for i in range(16,65):
+#     lora.remove_channel(i)
+# for i in range(66,72):
+#     lora.remove_channel(i)
+
+# join a network using OTAA (Over the Air Activation)
+#uncomment below to use LoRaWAN application provided dev_eui
+>>>>>>> 459f8fe9112011ad386238004d9e2553714d02aa
 lora.join(activation=LoRa.OTAA, auth=(app_eui, app_key), timeout=0)
 #lora.join(activation=LoRa.OTAA, auth=(dev_eui, app_eui, app_key), timeout=0)
 
